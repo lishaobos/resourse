@@ -1,7 +1,7 @@
 yum 
      
-	tar -zxvf yum-3.4.3.tar.gz     #½âÑ¹ºó½øµ½yum-3.4.3Ä¿Â¼
-   ./yummain.py update
+tar -zxvf yum-3.4.3.tar.gz     #è§£å‹åè¿›åˆ°yum-3.4.3ç›®å½•
+./yummain.py update
    
 jdk
  rpm -ivh jdk-8u102-linux-x64.rpm   
@@ -10,176 +10,176 @@ weblogic
   su ******
   java -jar fmw_12.1.3.0.0_wls.jar  
   
-Èç³öÏÖÎ´ÉèÖÃ DISPLAY »·¾³±äÁ¿   Èç¹ûÊÇÎ´ÖªÔò¿´¿´ÊÇ²»ÊÇroot£¬ÊÇ¾Í»»ÁË¡£
- ÔòÖ´ĞĞ  
- ¼ÌĞøÔÚĞéÄâ»úÖÕ¶ËÊäÈë	
+å¦‚å‡ºç°æœªè®¾ç½® DISPLAY ç¯å¢ƒå˜é‡   å¦‚æœæ˜¯æœªçŸ¥åˆ™çœ‹çœ‹æ˜¯ä¸æ˜¯rootï¼Œæ˜¯å°±æ¢äº†ã€‚
+ åˆ™æ‰§è¡Œ  
+ ç»§ç»­åœ¨è™šæ‹Ÿæœºç»ˆç«¯è¾“å…¥	
 	java -jar fmw_12.1.3.0.0_wls.jar 		
 	
-source /etc/profile Ë¢ĞÂ»·¾³±äÁ¿	
+source /etc/profile åˆ·æ–°ç¯å¢ƒå˜é‡	
 	
 domain
 
 cd /home/adminm/Oracle/Middleware/Oracle_Home/wlserver/common/bin
 ./config.sh
 
-Æô¶¯
+å¯åŠ¨
  cd /home/adminm/Oracle/Middleware/Oracle_Home/user_projects/domains/base_domain/bin
  ./startWebLogic.sh
  
  
- ¹Ø±Õ·À»ğÇ½ 
- °²×°yum install iptables-services
-	²é¿´·À»ğÇ½×´Ì¬ sudo systemctl status firewalld
+ å…³é—­é˜²ç«å¢™ 
+ å®‰è£…yum install iptables-services
+	æŸ¥çœ‹é˜²ç«å¢™çŠ¶æ€ sudo systemctl status firewalld
 	
-	¹Ø±Õ·À»ğÇ½ sudo systemctl disable firewalld
+	å…³é—­é˜²ç«å¢™ sudo systemctl disable firewalld
 			   sudo systemctl stop firewalld
-ÏÂÔØmysqlµÄrepoÔ´
+ä¸‹è½½mysqlçš„repoæº
 wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm 
-°²×°°ü
+å®‰è£…åŒ…
  rpm -ivh mysql-community-release-el7-5.noarch.rpm
- °²×°mysql
+ å®‰è£…mysql
  sudo yum install mysql-server
- µÇÂ¼ 
+ ç™»å½• 
  mysql -uroot -p
- ³öÏÖ´íÎó£¨ERROR 2002 (HY000): Can¡®t connect to local MySQL server through socket ¡®/var/lib/mysql/mysql.sock¡®(2)
- Ô­ÒòÊÇmysqlÕâ¸öÎÄ¼şµÄÈ¨ÏŞÎÊÌâ£¬ĞèÒª°ÑÕâ¸öÎÄ¼şµÄÈ¨ÏŞ¸ÄÎªµ±Ç°ÓÃ»§£©
+ å‡ºç°é”™è¯¯ï¼ˆERROR 2002 (HY000): Canâ€˜t connect to local MySQL server through socket â€˜/var/lib/mysql/mysql.sockâ€˜(2)
+ åŸå› æ˜¯mysqlè¿™ä¸ªæ–‡ä»¶çš„æƒé™é—®é¢˜ï¼Œéœ€è¦æŠŠè¿™ä¸ªæ–‡ä»¶çš„æƒé™æ”¹ä¸ºå½“å‰ç”¨æˆ·ï¼‰
 sudo chown -R adminm:adminm /var/lib/mysql
-ÖØÆô·şÎñµÇÂ¼root
+é‡å¯æœåŠ¡ç™»å½•root
 service mysqld restart
 mysql -u root
-½øÈë·şÎñĞŞ¸ÄÃÜÂë
+è¿›å…¥æœåŠ¡ä¿®æ”¹å¯†ç 
 use mysql;
 update user set password=password('*******') where user='root';
-flush privileges;£¨ÏµÍ³Ë¢ĞÂÉúĞ§£©
-ÏÂÃæ¾Í½éÉÜ¼¸¸öÄ¿Â¼¡£  
-1¡¢ Êı¾İ¿âÄ¿Â¼
+flush privileges;ï¼ˆç³»ç»Ÿåˆ·æ–°ç”Ÿæ•ˆï¼‰
+ä¸‹é¢å°±ä»‹ç»å‡ ä¸ªç›®å½•ã€‚  
+1ã€ æ•°æ®åº“ç›®å½•
 /var/lib/mysql/  
-2¡¢ÅäÖÃÎÄ¼ş
-/usr/share /mysql£¨mysql.serverÃüÁî¼°ÅäÖÃÎÄ¼ş£©  
-3¡¢Ïà¹ØÃüÁî  
-Í£Ö¹mysql
+2ã€é…ç½®æ–‡ä»¶
+/usr/share /mysqlï¼ˆmysql.serverå‘½ä»¤åŠé…ç½®æ–‡ä»¶ï¼‰  
+3ã€ç›¸å…³å‘½ä»¤  
+åœæ­¢mysql
 service mysqld stop
 /etc/inint.d/mysqld stop
-¿ªÊ¼mysql
+å¼€å§‹mysql
 service mysqld restart
-/usr/bin(mysqladmin mysqldumpµÈÃüÁî)  
-4¡¢Æô¶¯½Å±¾  
-/etc/rc.d/init.d/£¨Æô¶¯½Å±¾ÎÄ¼şmysqlµÄÄ¿Â¼£©
-±àÂëĞŞ¸Ä£º ÔÚ/etc ÏÂĞŞ¸Ämy.cofÎÄ¼ş£¬Ìí¼Ó character-set-server=utf8 £¬init_connect='SET NAMES£¬utf8' ÖØÆômysql £»
+/usr/bin(mysqladmin mysqldumpç­‰å‘½ä»¤)  
+4ã€å¯åŠ¨è„šæœ¬  
+/etc/rc.d/init.d/ï¼ˆå¯åŠ¨è„šæœ¬æ–‡ä»¶mysqlçš„ç›®å½•ï¼‰
+ç¼–ç ä¿®æ”¹ï¼š åœ¨/etc ä¸‹ä¿®æ”¹my.cofæ–‡ä»¶ï¼Œæ·»åŠ  character-set-server=utf8 ï¼Œinit_connect='SET NAMESï¼Œutf8' é‡å¯mysql ï¼›
 
-netstat -anp ===µÈÓÚ===  ps -ef|grep mysql
-
-
+netstat -anp ===ç­‰äº===  ps -ef|grep mysql
 
 
-±¾µØÁ´½ÓĞéÄâ»úMySQL
-1, cmdÏÂtelnet ***.***.**.*** 3306 £¨Èç¹ûÎŞ·¨Ö´ĞĞ£¬Ôò¿ªÆôwindowsµÄtelnet·şÎñ£©
-2£¬²é¿´ÍøÂç¶Ë¿ÚĞÅÏ¢ netstat -ntpl ; ²é¿´·À»ğÇ½×´Ì¬ iptables -vnL;
-3£¬Çå³ı·À»ğÇ½ÖĞÁ´ÖĞµÄ¹æÔò iptables -F;
-4£¬ÔÚiptables.service Ìí¼ÓºÍ22Ò»ÑùµÄ3306(Ä£·Â22¶Ë¿Ú¿ª·Å3306);
-5£¬update user set host='%' where user = 'root' ;
-6,Èç¹û²»ÔÊĞíÁ´½Ó ÔòÍ£Ö¹mysql £¬ ÆÁ±ÎÈ¨ÏŞ mysqld_safe --skip-grant-table £¬ÖØĞÂµÇÂ¼²é¿´£¬Èç¹ûÃÀºÃÔò 
+
+
+æœ¬åœ°é“¾æ¥è™šæ‹ŸæœºMySQL
+1, cmdä¸‹telnet ***.***.**.*** 3306 ï¼ˆå¦‚æœæ— æ³•æ‰§è¡Œï¼Œåˆ™å¼€å¯windowsçš„telnetæœåŠ¡ï¼‰
+2ï¼ŒæŸ¥çœ‹ç½‘ç»œç«¯å£ä¿¡æ¯ netstat -ntpl ; æŸ¥çœ‹é˜²ç«å¢™çŠ¶æ€ iptables -vnL;
+3ï¼Œæ¸…é™¤é˜²ç«å¢™ä¸­é“¾ä¸­çš„è§„åˆ™ iptables -F;
+4ï¼Œåœ¨iptables.service æ·»åŠ å’Œ22ä¸€æ ·çš„3306(æ¨¡ä»¿22ç«¯å£å¼€æ”¾3306);
+5ï¼Œupdate user set host='%' where user = 'root' ;
+6,å¦‚æœä¸å…è®¸é“¾æ¥ åˆ™åœæ­¢mysql ï¼Œ å±è”½æƒé™ mysqld_safe --skip-grant-table ï¼Œé‡æ–°ç™»å½•æŸ¥çœ‹ï¼Œå¦‚æœç¾å¥½åˆ™ 
 UPDATE user SET Password=PASSWORD('newpassword') where USER='root';
-»òdelete from user where USER='';  ×îºó  FLUSH PRIVILEGES £¨Ò»¶¨ÒªÖ´ĞĞ£©£»
+æˆ–delete from user where USER='';  æœ€å  FLUSH PRIVILEGES ï¼ˆä¸€å®šè¦æ‰§è¡Œï¼‰ï¼›
 
 
 
 
-°²×°nginx
- °²×° gcc¡¢pcre-devel¡¢zlib-devel¡¢openssl-devel¡£
- °²×°ÃüÁî yum -y install gcc pcre-devel zlib-devel openssl openssl-devel
- ÏÂÔØnginx°²×°°ü
+å®‰è£…nginx
+ å®‰è£… gccã€pcre-develã€zlib-develã€openssl-develã€‚
+ å®‰è£…å‘½ä»¤ yum -y install gcc pcre-devel zlib-devel openssl openssl-devel
+ ä¸‹è½½nginxå®‰è£…åŒ…
  wget https://nginx.org/download/nginx-1.9.9.tar.gz
- ½âÑ¹
+ è§£å‹
 tar -zxvf nginx-1.9.9.tar.gz
-½øÈë½âÑ¹Ä¿Â¼Àï
+è¿›å…¥è§£å‹ç›®å½•é‡Œ
 ./configure --prefix=/usr/local/nginx
-×¢ÊÍ£ºnginx±àÒëÑ¡Ïî
-makeÊÇÓÃÀ´±àÒëµÄ£¬Ëü´ÓMakefileÖĞ¶ÁÈ¡Ö¸Áî£¬È»ºó±àÒë¡£
-make installÊÇÓÃÀ´°²×°µÄ£¬ËüÒ²´ÓMakefileÖĞ¶ÁÈ¡Ö¸Áî£¬°²×°µ½Ö¸¶¨µÄÎ»ÖÃ¡£
-configureÃüÁîÊÇÓÃÀ´¼ì²âÄãµÄ°²×°Æ½Ì¨µÄÄ¿±êÌØÕ÷µÄ¡£Ëü¶¨ÒåÁËÏµÍ³µÄ¸÷¸ö·½Ãæ£¬°üÀ¨nginxµÄ±»ÔÊĞíÊ¹ÓÃµÄÁ¬½Ó´¦ÀíµÄ·½·¨£¬±ÈÈçËü»á¼ì²âÄãÊÇ²»ÊÇÓĞCC»òGCC£¬²¢²»ÊÇĞèÒªCC»òGCC£¬ËüÊÇ¸öshell½Å±¾£¬Ö´ĞĞ½áÊøÊ±£¬Ëü»á´´½¨Ò»¸öMakefileÎÄ¼ş¡£nginxµÄconfigureÃüÁîÖ§³ÖÒÔÏÂ²ÎÊı£º
-¨Cprefix=path ¶¨ÒåÒ»¸öÄ¿Â¼£¬´æ·Å·şÎñÆ÷ÉÏµÄÎÄ¼ş £¬Ò²¾ÍÊÇnginxµÄ°²×°Ä¿Â¼¡£Ä¬ÈÏÊ¹ÓÃ /usr/local/nginx¡£
-¨Csbin-path=path ÉèÖÃnginxµÄ¿ÉÖ´ĞĞÎÄ¼şµÄÂ·¾¶£¬Ä¬ÈÏÎª prefix/sbin/nginx.
-¨Cconf-path=path ÉèÖÃÔÚnginx.confÅäÖÃÎÄ¼şµÄÂ·¾¶¡£nginxÔÊĞíÊ¹ÓÃ²»Í¬µÄÅäÖÃÎÄ¼şÆô¶¯£¬Í¨¹ıÃüÁîĞĞÖĞµÄ-cÑ¡Ïî¡£Ä¬ÈÏÎªprefix/conf/nginx.conf.
-¨Cpid-path=path ÉèÖÃnginx.pidÎÄ¼ş£¬½«´æ´¢µÄÖ÷½ø³ÌµÄ½ø³ÌºÅ¡£°²×°Íê³Éºó£¬¿ÉÒÔËæÊ±¸Ä±äµÄÎÄ¼şÃû £¬ ÔÚnginx.confÅäÖÃÎÄ¼şÖĞÊ¹ÓÃ PIDÖ¸Áî¡£Ä¬ÈÏÇé¿öÏÂ£¬ÎÄ¼şÃû Îªprefix/logs/nginx.pid.
-¨Cerror-log-path=path ÉèÖÃÖ÷´íÎó£¬¾¯¸æ£¬ºÍÕï¶ÏÎÄ¼şµÄÃû³Æ¡£°²×°Íê³Éºó£¬¿ÉÒÔËæÊ±¸Ä±äµÄÎÄ¼şÃû £¬ÔÚnginx.confÅäÖÃÎÄ¼şÖĞ Ê¹ÓÃ µÄerror_logÖ¸Áî¡£Ä¬ÈÏÇé¿öÏÂ£¬ÎÄ¼şÃû Îªprefix/logs/error.log.
-¨Chttp-log-path=path ÉèÖÃÖ÷ÇëÇóµÄHTTP·şÎñÆ÷µÄÈÕÖ¾ÎÄ¼şµÄÃû³Æ¡£°²×°Íê³Éºó£¬¿ÉÒÔËæÊ±¸Ä±äµÄÎÄ¼şÃû £¬ÔÚnginx.confÅäÖÃÎÄ¼şÖĞ Ê¹ÓÃ µÄaccess_logÖ¸Áî¡£Ä¬ÈÏÇé¿öÏÂ£¬ÎÄ¼şÃû Îªprefix/logs/access.log.
-¨Cuser=name ÉèÖÃnginx¹¤×÷½ø³ÌµÄÓÃ»§¡£°²×°Íê³Éºó£¬¿ÉÒÔËæÊ±¸ü¸ÄµÄÃû³ÆÔÚnginx.confÅäÖÃÎÄ¼şÖĞ Ê¹ÓÃµÄ userÖ¸Áî¡£Ä¬ÈÏµÄÓÃ»§ÃûÊÇnobody¡£
-¨Cgroup=name ÉèÖÃnginx¹¤×÷½ø³ÌµÄÓÃ»§×é¡£°²×°Íê³Éºó£¬¿ÉÒÔËæÊ±¸ü¸ÄµÄÃû³ÆÔÚnginx.confÅäÖÃÎÄ¼şÖĞ Ê¹ÓÃµÄ userÖ¸Áî¡£Ä¬ÈÏµÄÎª·ÇÌØÈ¨ÓÃ»§¡£
-¨Cwith-select_module --without-select_module ÆôÓÃ»ò½ûÓÃ¹¹½¨Ò»¸öÄ£¿éÀ´ÔÊĞí·şÎñÆ÷Ê¹ÓÃselect()·½·¨¡£¸ÃÄ£¿é½«×Ô¶¯½¨Á¢£¬Èç¹ûÆ½Ì¨²»Ö§³ÖµÄkqueue£¬epoll£¬rtsig»ò/dev/poll¡£
-¨Cwith-poll_module --without-poll_module ÆôÓÃ»ò½ûÓÃ¹¹½¨Ò»¸öÄ£¿éÀ´ÔÊĞí·şÎñÆ÷Ê¹ÓÃpoll()·½·¨¡£¸ÃÄ£¿é½«×Ô¶¯½¨Á¢£¬Èç¹ûÆ½Ì¨²»Ö§³ÖµÄkqueue£¬epoll£¬rtsig»ò/dev/poll¡£
-¨Cwithout-http_gzip_module ¡ª ²»±àÒëÑ¹ËõµÄHTTP·şÎñÆ÷µÄÏìÓ¦Ä£¿é¡£±àÒë²¢ÔËĞĞ´ËÄ£¿éĞèÒªzlib¿â¡£
-¨Cwithout-http_rewrite_module ²»±àÒëÖØĞ´Ä£¿é¡£±àÒë²¢ÔËĞĞ´ËÄ£¿éĞèÒªPCRE¿âÖ§³Ö¡£
-¨Cwithout-http_proxy_module ¡ª ²»±àÒëhttp_proxyÄ£¿é¡£
-¨Cwith-http_ssl_module ¡ª Ê¹ÓÃhttpsĞ­ÒéÄ£¿é¡£Ä¬ÈÏÇé¿öÏÂ£¬¸ÃÄ£¿éÃ»ÓĞ±»¹¹½¨¡£½¨Á¢²¢ÔËĞĞ´ËÄ£¿éµÄOpenSSL¿âÊÇ±ØĞèµÄ¡£
-¨Cwith-pcre=path ¡ª ÉèÖÃPCRE¿âµÄÔ´ÂëÂ·¾¶¡£PCRE¿âµÄÔ´Âë£¨°æ±¾4.4 - 8.30£©ĞèÒª´ÓPCREÍøÕ¾ÏÂÔØ²¢½âÑ¹¡£ÆäÓàµÄ¹¤×÷ÊÇNginxµÄ./ configureºÍmakeÀ´Íê³É¡£ÕıÔò±í´ïÊ½Ê¹ÓÃÔÚlocationÖ¸ÁîºÍ ngx_http_rewrite_module Ä£¿éÖĞ¡£
-¨Cwith-pcre-jit ¡ª±àÒëPCRE°üº¬¡°just-in-time compilation¡±£¨1.1.12ÖĞ£¬ pcre_jitÖ¸Áî£©¡£
-¨Cwith-zlib=path ¡ªÉèÖÃµÄzlib¿âµÄÔ´ÂëÂ·¾¶¡£ÒªÏÂÔØ´Ó zlib£¨°æ±¾1.1.3 - 1.2.5£©µÄ²¢½âÑ¹¡£ÆäÓàµÄ¹¤×÷ÊÇNginxµÄ./ configureºÍmakeÍê³É¡£ngx_http_gzip_moduleÄ£¿éĞèÒªÊ¹ÓÃzlib ¡£
-¨Cwith-cc-opt=parameters ¡ª ÉèÖÃ¶îÍâµÄ²ÎÊı½«±»Ìí¼Óµ½CFLAGS±äÁ¿¡£ÀıÈç,µ±ÄãÔÚFreeBSDÉÏÊ¹ÓÃPCRE¿âÊ±ĞèÒªÊ¹ÓÃ:¨Cwith-cc-opt="-I /usr/local/include¡£.ÈçĞèÒªĞèÒªÔö¼Ó select()Ö§³ÖµÄÎÄ¼şÊıÁ¿:¨Cwith-cc-opt="-D FD_SETSIZE=2048".
-¨Cwith-ld-opt=parameters ¡ªÉèÖÃ¸½¼ÓµÄ²ÎÊı£¬½«ÓÃÓÚÔÚÁ´½ÓÆÚ¼ä¡£ÀıÈç£¬µ±ÔÚFreeBSDÏÂÊ¹ÓÃ¸ÃÏµÍ³µÄPCRE¿â,Ó¦Ö¸¶¨:¨Cwith-ld-opt="-L /usr/local/lib".
+æ³¨é‡Šï¼šnginxç¼–è¯‘é€‰é¡¹
+makeæ˜¯ç”¨æ¥ç¼–è¯‘çš„ï¼Œå®ƒä»Makefileä¸­è¯»å–æŒ‡ä»¤ï¼Œç„¶åç¼–è¯‘ã€‚
+make installæ˜¯ç”¨æ¥å®‰è£…çš„ï¼Œå®ƒä¹Ÿä»Makefileä¸­è¯»å–æŒ‡ä»¤ï¼Œå®‰è£…åˆ°æŒ‡å®šçš„ä½ç½®ã€‚
+configureå‘½ä»¤æ˜¯ç”¨æ¥æ£€æµ‹ä½ çš„å®‰è£…å¹³å°çš„ç›®æ ‡ç‰¹å¾çš„ã€‚å®ƒå®šä¹‰äº†ç³»ç»Ÿçš„å„ä¸ªæ–¹é¢ï¼ŒåŒ…æ‹¬nginxçš„è¢«å…è®¸ä½¿ç”¨çš„è¿æ¥å¤„ç†çš„æ–¹æ³•ï¼Œæ¯”å¦‚å®ƒä¼šæ£€æµ‹ä½ æ˜¯ä¸æ˜¯æœ‰CCæˆ–GCCï¼Œå¹¶ä¸æ˜¯éœ€è¦CCæˆ–GCCï¼Œå®ƒæ˜¯ä¸ªshellè„šæœ¬ï¼Œæ‰§è¡Œç»“æŸæ—¶ï¼Œå®ƒä¼šåˆ›å»ºä¸€ä¸ªMakefileæ–‡ä»¶ã€‚nginxçš„configureå‘½ä»¤æ”¯æŒä»¥ä¸‹å‚æ•°ï¼š
+â€“prefix=path å®šä¹‰ä¸€ä¸ªç›®å½•ï¼Œå­˜æ”¾æœåŠ¡å™¨ä¸Šçš„æ–‡ä»¶ ï¼Œä¹Ÿå°±æ˜¯nginxçš„å®‰è£…ç›®å½•ã€‚é»˜è®¤ä½¿ç”¨ /usr/local/nginxã€‚
+â€“sbin-path=path è®¾ç½®nginxçš„å¯æ‰§è¡Œæ–‡ä»¶çš„è·¯å¾„ï¼Œé»˜è®¤ä¸º prefix/sbin/nginx.
+â€“conf-path=path è®¾ç½®åœ¨nginx.confé…ç½®æ–‡ä»¶çš„è·¯å¾„ã€‚nginxå…è®¸ä½¿ç”¨ä¸åŒçš„é…ç½®æ–‡ä»¶å¯åŠ¨ï¼Œé€šè¿‡å‘½ä»¤è¡Œä¸­çš„-cé€‰é¡¹ã€‚é»˜è®¤ä¸ºprefix/conf/nginx.conf.
+â€“pid-path=path è®¾ç½®nginx.pidæ–‡ä»¶ï¼Œå°†å­˜å‚¨çš„ä¸»è¿›ç¨‹çš„è¿›ç¨‹å·ã€‚å®‰è£…å®Œæˆåï¼Œå¯ä»¥éšæ—¶æ”¹å˜çš„æ–‡ä»¶å ï¼Œ åœ¨nginx.confé…ç½®æ–‡ä»¶ä¸­ä½¿ç”¨ PIDæŒ‡ä»¤ã€‚é»˜è®¤æƒ…å†µä¸‹ï¼Œæ–‡ä»¶å ä¸ºprefix/logs/nginx.pid.
+â€“error-log-path=path è®¾ç½®ä¸»é”™è¯¯ï¼Œè­¦å‘Šï¼Œå’Œè¯Šæ–­æ–‡ä»¶çš„åç§°ã€‚å®‰è£…å®Œæˆåï¼Œå¯ä»¥éšæ—¶æ”¹å˜çš„æ–‡ä»¶å ï¼Œåœ¨nginx.confé…ç½®æ–‡ä»¶ä¸­ ä½¿ç”¨ çš„error_logæŒ‡ä»¤ã€‚é»˜è®¤æƒ…å†µä¸‹ï¼Œæ–‡ä»¶å ä¸ºprefix/logs/error.log.
+â€“http-log-path=path è®¾ç½®ä¸»è¯·æ±‚çš„HTTPæœåŠ¡å™¨çš„æ—¥å¿—æ–‡ä»¶çš„åç§°ã€‚å®‰è£…å®Œæˆåï¼Œå¯ä»¥éšæ—¶æ”¹å˜çš„æ–‡ä»¶å ï¼Œåœ¨nginx.confé…ç½®æ–‡ä»¶ä¸­ ä½¿ç”¨ çš„access_logæŒ‡ä»¤ã€‚é»˜è®¤æƒ…å†µä¸‹ï¼Œæ–‡ä»¶å ä¸ºprefix/logs/access.log.
+â€“user=name è®¾ç½®nginxå·¥ä½œè¿›ç¨‹çš„ç”¨æˆ·ã€‚å®‰è£…å®Œæˆåï¼Œå¯ä»¥éšæ—¶æ›´æ”¹çš„åç§°åœ¨nginx.confé…ç½®æ–‡ä»¶ä¸­ ä½¿ç”¨çš„ useræŒ‡ä»¤ã€‚é»˜è®¤çš„ç”¨æˆ·åæ˜¯nobodyã€‚
+â€“group=name è®¾ç½®nginxå·¥ä½œè¿›ç¨‹çš„ç”¨æˆ·ç»„ã€‚å®‰è£…å®Œæˆåï¼Œå¯ä»¥éšæ—¶æ›´æ”¹çš„åç§°åœ¨nginx.confé…ç½®æ–‡ä»¶ä¸­ ä½¿ç”¨çš„ useræŒ‡ä»¤ã€‚é»˜è®¤çš„ä¸ºéç‰¹æƒç”¨æˆ·ã€‚
+â€“with-select_module --without-select_module å¯ç”¨æˆ–ç¦ç”¨æ„å»ºä¸€ä¸ªæ¨¡å—æ¥å…è®¸æœåŠ¡å™¨ä½¿ç”¨select()æ–¹æ³•ã€‚è¯¥æ¨¡å—å°†è‡ªåŠ¨å»ºç«‹ï¼Œå¦‚æœå¹³å°ä¸æ”¯æŒçš„kqueueï¼Œepollï¼Œrtsigæˆ–/dev/pollã€‚
+â€“with-poll_module --without-poll_module å¯ç”¨æˆ–ç¦ç”¨æ„å»ºä¸€ä¸ªæ¨¡å—æ¥å…è®¸æœåŠ¡å™¨ä½¿ç”¨poll()æ–¹æ³•ã€‚è¯¥æ¨¡å—å°†è‡ªåŠ¨å»ºç«‹ï¼Œå¦‚æœå¹³å°ä¸æ”¯æŒçš„kqueueï¼Œepollï¼Œrtsigæˆ–/dev/pollã€‚
+â€“without-http_gzip_module â€” ä¸ç¼–è¯‘å‹ç¼©çš„HTTPæœåŠ¡å™¨çš„å“åº”æ¨¡å—ã€‚ç¼–è¯‘å¹¶è¿è¡Œæ­¤æ¨¡å—éœ€è¦zlibåº“ã€‚
+â€“without-http_rewrite_module ä¸ç¼–è¯‘é‡å†™æ¨¡å—ã€‚ç¼–è¯‘å¹¶è¿è¡Œæ­¤æ¨¡å—éœ€è¦PCREåº“æ”¯æŒã€‚
+â€“without-http_proxy_module â€” ä¸ç¼–è¯‘http_proxyæ¨¡å—ã€‚
+â€“with-http_ssl_module â€” ä½¿ç”¨httpsåè®®æ¨¡å—ã€‚é»˜è®¤æƒ…å†µä¸‹ï¼Œè¯¥æ¨¡å—æ²¡æœ‰è¢«æ„å»ºã€‚å»ºç«‹å¹¶è¿è¡Œæ­¤æ¨¡å—çš„OpenSSLåº“æ˜¯å¿…éœ€çš„ã€‚
+â€“with-pcre=path â€” è®¾ç½®PCREåº“çš„æºç è·¯å¾„ã€‚PCREåº“çš„æºç ï¼ˆç‰ˆæœ¬4.4 - 8.30ï¼‰éœ€è¦ä»PCREç½‘ç«™ä¸‹è½½å¹¶è§£å‹ã€‚å…¶ä½™çš„å·¥ä½œæ˜¯Nginxçš„./ configureå’Œmakeæ¥å®Œæˆã€‚æ­£åˆ™è¡¨è¾¾å¼ä½¿ç”¨åœ¨locationæŒ‡ä»¤å’Œ ngx_http_rewrite_module æ¨¡å—ä¸­ã€‚
+â€“with-pcre-jit â€”ç¼–è¯‘PCREåŒ…å«â€œjust-in-time compilationâ€ï¼ˆ1.1.12ä¸­ï¼Œ pcre_jitæŒ‡ä»¤ï¼‰ã€‚
+â€“with-zlib=path â€”è®¾ç½®çš„zlibåº“çš„æºç è·¯å¾„ã€‚è¦ä¸‹è½½ä» zlibï¼ˆç‰ˆæœ¬1.1.3 - 1.2.5ï¼‰çš„å¹¶è§£å‹ã€‚å…¶ä½™çš„å·¥ä½œæ˜¯Nginxçš„./ configureå’Œmakeå®Œæˆã€‚ngx_http_gzip_moduleæ¨¡å—éœ€è¦ä½¿ç”¨zlib ã€‚
+â€“with-cc-opt=parameters â€” è®¾ç½®é¢å¤–çš„å‚æ•°å°†è¢«æ·»åŠ åˆ°CFLAGSå˜é‡ã€‚ä¾‹å¦‚,å½“ä½ åœ¨FreeBSDä¸Šä½¿ç”¨PCREåº“æ—¶éœ€è¦ä½¿ç”¨:â€“with-cc-opt="-I /usr/local/includeã€‚.å¦‚éœ€è¦éœ€è¦å¢åŠ  select()æ”¯æŒçš„æ–‡ä»¶æ•°é‡:â€“with-cc-opt="-D FD_SETSIZE=2048".
+â€“with-ld-opt=parameters â€”è®¾ç½®é™„åŠ çš„å‚æ•°ï¼Œå°†ç”¨äºåœ¨é“¾æ¥æœŸé—´ã€‚ä¾‹å¦‚ï¼Œå½“åœ¨FreeBSDä¸‹ä½¿ç”¨è¯¥ç³»ç»Ÿçš„PCREåº“,åº”æŒ‡å®š:â€“with-ld-opt="-L /usr/local/lib".
 --------------------- 
-±àÒë°²×°
+ç¼–è¯‘å®‰è£…
 make 
 make install
-±àÒë°²×°Íê³ÉÖ®ºó£¬½øÈë/usr/lcoal/nginx£¬²é¿´ÊÇ·ñ°²×°³É¹¦
+ç¼–è¯‘å®‰è£…å®Œæˆä¹‹åï¼Œè¿›å…¥/usr/lcoal/nginxï¼ŒæŸ¥çœ‹æ˜¯å¦å®‰è£…æˆåŠŸ
 ./sbin/nginx -t
-Æô¶¯
+å¯åŠ¨
 ./nginx    ./nginx -s reload
-ÏÔÊ¾
+æ˜¾ç¤º
 [root@~]# ps -ef | grep nginx
 root 22786 1 0 16:30 ? 00:00:00 nginx: master process /usr/local/nginx/sbin/nginx
 nobody 22787 22786 0 16:30 ? 00:00:00 nginx: worker process
 root 22789 22760 0 16:30 pts/1 00:00:00 grep --color=auto nginx
-±íÊ¾³É¹¦ µÇÂ¼·şÎñÆ÷IPµØÖ·¼´¿É·ÃÎÊ
+è¡¨ç¤ºæˆåŠŸ ç™»å½•æœåŠ¡å™¨IPåœ°å€å³å¯è®¿é—®
 
-nginxÌáÊ¾still could not bind()£¬¶Ë¿ÚºÅ±»Õ¼ÓÃ£¬ÆäËûÔòkillµô£¬±¾ÉíÔòÍ£Ö¹ÖØÆô¡£
+nginxæç¤ºstill could not bind()ï¼Œç«¯å£å·è¢«å ç”¨ï¼Œå…¶ä»–åˆ™killæ‰ï¼Œæœ¬èº«åˆ™åœæ­¢é‡å¯ã€‚
 
-²é¿´
-lsof -i ¶Ë¿ÚºÅ
-ÅäÖÃ»·¾³±äÁ¿(Èç¹ûÏÔÊ¾bash: nginx: Î´ÕÒµ½ÃüÁî...ÔòĞèÒªÅäÖÃ)
+æŸ¥çœ‹
+lsof -i ç«¯å£å·
+é…ç½®ç¯å¢ƒå˜é‡(å¦‚æœæ˜¾ç¤ºbash: nginx: æœªæ‰¾åˆ°å‘½ä»¤...åˆ™éœ€è¦é…ç½®)
 vim /etc/profile
-ÔÚ unset ºóÃæÌí¼Ó  
+åœ¨ unset åé¢æ·»åŠ   
 PATH = SPATH:/usr/local/nginx/sbin/nginx
 export PATH
-ÅäÖÃnginx¿ª»ú×ÔÆô¶¯
+é…ç½®nginxå¼€æœºè‡ªå¯åŠ¨
 vim  /etc/rc.d/rc.local
-ÔÚ touch .... ÏÂÃæÌí¼Ó /usr/lcoal/nginx/sbin/nginx 
+åœ¨ touch .... ä¸‹é¢æ·»åŠ  /usr/lcoal/nginx/sbin/nginx 
 
-nginx ·şÎñÆ÷ÖØÆôÃüÁî£¬¹Ø±Õ
-nginx -s reload £ºĞŞ¸ÄÅäÖÃºóÖØĞÂ¼ÓÔØÉúĞ§
-nginx -s reopen £ºÖØĞÂ´ò¿ªÈÕÖ¾ÎÄ¼ş
-nginx -t -c /path/to/nginx.conf ²âÊÔnginxÅäÖÃÎÄ¼şÊÇ·ñÕıÈ·
+nginx æœåŠ¡å™¨é‡å¯å‘½ä»¤ï¼Œå…³é—­
+nginx -s reload ï¼šä¿®æ”¹é…ç½®åé‡æ–°åŠ è½½ç”Ÿæ•ˆ
+nginx -s reopen ï¼šé‡æ–°æ‰“å¼€æ—¥å¿—æ–‡ä»¶
+nginx -t -c /path/to/nginx.conf æµ‹è¯•nginxé…ç½®æ–‡ä»¶æ˜¯å¦æ­£ç¡®
 
-¹Ø±Õnginx£º
-nginx -s stop :¿ìËÙÍ£Ö¹nginx
-quit £ºÍêÕûÓĞĞòµÄÍ£Ö¹nginx
+å…³é—­nginxï¼š
+nginx -s stop :å¿«é€Ÿåœæ­¢nginx
+quit ï¼šå®Œæ•´æœ‰åºçš„åœæ­¢nginx
 
-ÆäËûµÄÍ£Ö¹nginx ·½Ê½£º
+å…¶ä»–çš„åœæ­¢nginx æ–¹å¼ï¼š
 
 ps -ef | grep nginx
 
-kill -QUIT Ö÷½ø³ÌºÅ £º´ÓÈİÍ£Ö¹Nginx
-kill -TERM Ö÷½ø³ÌºÅ £º¿ìËÙÍ£Ö¹Nginx
-pkill -9 nginx £ºÇ¿ÖÆÍ£Ö¹Nginx
+kill -QUIT ä¸»è¿›ç¨‹å· ï¼šä»å®¹åœæ­¢Nginx
+kill -TERM ä¸»è¿›ç¨‹å· ï¼šå¿«é€Ÿåœæ­¢Nginx
+pkill -9 nginx ï¼šå¼ºåˆ¶åœæ­¢Nginx
 
  
 
-Æô¶¯nginx:
+å¯åŠ¨nginx:
 nginx -c /path/to/nginx.confs
 
-Æ½»¬ÖØÆônginx£º
-kill -HUP Ö÷½ø³ÌºÅ
+å¹³æ»‘é‡å¯nginxï¼š
+kill -HUP ä¸»è¿›ç¨‹å·
 
-·´Ïò´úÀíºÍ¸ºÔØ¾ùºâÓĞºÎÇø±ğ
-·´Ïò´úÀí£¬ÊÇ°ÑÒ»Ğ©¾²Ì¬×ÊÔ´´æ´¢ÔÚ·şÎñÆ÷ÉÏ£¬µ±ÓÃ»§ÓĞÇëÇóµÄÊ±ºò£¬¾ÍÖ±½Ó·µ»Ø·´Ïò´úÀí·şÎñÆ÷ÉÏµÄ×ÊÔ´¸øÓÃ»§£¬¶øÈç¹û·´Ïò´úÀí·şÎñÆ÷ÉÏÃ»ÓĞµÄ×ÊÔ´£¬¾Í×ª·¢¸øºóÃæµÄ¸ºÔØ¾ùºâ·şÎñÆ÷£¬¸ºÔØ¾ùºâ·şÎñÆ÷ÔÙ½«ÇëÇó·Ö·¢¸øºó¶ËµÄweb·şÎñÆ÷¡£
-Çø±ğ¾ÍÊÇ£º·´Ïò´úÀí·şÎñÆ÷ÊÇĞèÒª´æ´¢×ÊÔ´µÄ£¬ÈÃÓÃ»§¸ü¿ìËÙµÄ½ÓÊÕµ½×ÊÔ´ ¸ºÔØ¾ùºâ¾ÍÊÇ£¬ÎªÁË±£Ö¤ºó¶Ëweb·şÎñÆ÷µÄ¸ß¿ÉÓÃ£¬¸ß²¢·¢£¬ÊÇ²»ĞèÒªÒª´æ´¢×ÊÔ´£¬Ö»ĞèÒª×ª·¢ÓÃ»§µÄÇëÇó¡£
-¸ºÔØ¾ùºâÊÇ×ö·´Ïò´úÀíµÄÄ¿µÄÖ®Ò»¡£
-Ã»Ì«´óÇø±ğ£¬ÒªËµÇø±ğ¾ÍÊÇºó¶ËÊÇ1Ì¨ÁË½Ğ·´Ïò´úÀí£¬ÓĞ¶àÌ¨ÁË¾ÍÊÇ¸ºÔØ¾ùºâÁË£¬Ã»É¶´óÇø±ğ¡£
+åå‘ä»£ç†å’Œè´Ÿè½½å‡è¡¡æœ‰ä½•åŒºåˆ«
+åå‘ä»£ç†ï¼Œæ˜¯æŠŠä¸€äº›é™æ€èµ„æºå­˜å‚¨åœ¨æœåŠ¡å™¨ä¸Šï¼Œå½“ç”¨æˆ·æœ‰è¯·æ±‚çš„æ—¶å€™ï¼Œå°±ç›´æ¥è¿”å›åå‘ä»£ç†æœåŠ¡å™¨ä¸Šçš„èµ„æºç»™ç”¨æˆ·ï¼Œè€Œå¦‚æœåå‘ä»£ç†æœåŠ¡å™¨ä¸Šæ²¡æœ‰çš„èµ„æºï¼Œå°±è½¬å‘ç»™åé¢çš„è´Ÿè½½å‡è¡¡æœåŠ¡å™¨ï¼Œè´Ÿè½½å‡è¡¡æœåŠ¡å™¨å†å°†è¯·æ±‚åˆ†å‘ç»™åç«¯çš„webæœåŠ¡å™¨ã€‚
+åŒºåˆ«å°±æ˜¯ï¼šåå‘ä»£ç†æœåŠ¡å™¨æ˜¯éœ€è¦å­˜å‚¨èµ„æºçš„ï¼Œè®©ç”¨æˆ·æ›´å¿«é€Ÿçš„æ¥æ”¶åˆ°èµ„æº è´Ÿè½½å‡è¡¡å°±æ˜¯ï¼Œä¸ºäº†ä¿è¯åç«¯webæœåŠ¡å™¨çš„é«˜å¯ç”¨ï¼Œé«˜å¹¶å‘ï¼Œæ˜¯ä¸éœ€è¦è¦å­˜å‚¨èµ„æºï¼Œåªéœ€è¦è½¬å‘ç”¨æˆ·çš„è¯·æ±‚ã€‚
+è´Ÿè½½å‡è¡¡æ˜¯åšåå‘ä»£ç†çš„ç›®çš„ä¹‹ä¸€ã€‚
+æ²¡å¤ªå¤§åŒºåˆ«ï¼Œè¦è¯´åŒºåˆ«å°±æ˜¯åç«¯æ˜¯1å°äº†å«åå‘ä»£ç†ï¼Œæœ‰å¤šå°äº†å°±æ˜¯è´Ÿè½½å‡è¡¡äº†ï¼Œæ²¡å•¥å¤§åŒºåˆ«ã€‚
 
 
-°²×°tomcat  
-ÏÂÔØ ½âÑ¹ /binÏÂÃæÆô¶¯ 
-¿ªÆôµÚ¶ş¸ö ¸´ÖÆÒ»·İ(Ä¿Â¼Ê±cp -r )£¬ĞŞ¸Ä /conf ÏÂÃæµÄserver.xml £¬¸ü¸Ä 3¸ö¶Ë¿Ú , Æô¶¯¾ÍĞĞ¡£
+å®‰è£…tomcat  
+ä¸‹è½½ è§£å‹ /binä¸‹é¢å¯åŠ¨ 
+å¼€å¯ç¬¬äºŒä¸ª å¤åˆ¶ä¸€ä»½(ç›®å½•æ—¶cp -r )ï¼Œä¿®æ”¹ /conf ä¸‹é¢çš„server.xml ï¼Œæ›´æ”¹ 3ä¸ªç«¯å£ , å¯åŠ¨å°±è¡Œã€‚
 
 <html>
 <body>
@@ -190,12 +190,12 @@ kill -HUP Ö÷½ø³ÌºÅ
 </html>
 
 
-ÃüÁî²é¿´¸÷¶Ë¿ÚºÅÕ¼ÓÃÇé¿ö
+å‘½ä»¤æŸ¥çœ‹å„ç«¯å£å·å ç”¨æƒ…å†µ
 netstat -ntpl
 
-ÉèÖÃ·şÎñ¶Ë¿Ú
-upstream nginxDemo£¨Ëæ±ãÃüÃû£¬µ«ÒªºÍÏÂÃæÍ³Ò»£©{
-server 192.168.17.130:8080    È¨ÖØ weight=5 ;
+è®¾ç½®æœåŠ¡ç«¯å£
+upstream nginxDemoï¼ˆéšä¾¿å‘½åï¼Œä½†è¦å’Œä¸‹é¢ç»Ÿä¸€ï¼‰{
+server 192.168.17.130:8080    æƒé‡ weight=5 ;
 server 192.168.17.130:8081;
 server 192.168.17.130:8082;
 server 192.168.17.130:8083;
@@ -206,68 +206,68 @@ server 192.168.17.130:8083;
  }
 
 
-¸üĞÂÒ»ÏÂyum¿©
+æ›´æ–°ä¸€ä¸‹yumå’¯
 yum install -y epel-release
-»ğ³µ
+ç«è½¦
 sudo yum install sl 
 $ sl
 
-·Å»ğ	
+æ”¾ç«	
 sudo yum install libaa-bin 
 
-Ğ¡ÀÏÊó
+å°è€é¼ 
 sudo yum install oneko
 $ oneko
 
-ÑÛ¾¦
+çœ¼ç›
 sudo yum install xeyes
 $ xeyes
 
-Ä¿Â¼¿ò
+ç›®å½•æ¡†
 sudo yum install boxes
-$  ÃüÁî | boxes -d dog 
+$  å‘½ä»¤ | boxes -d dog 
 
-ÔÈËÙÏÔÊ¾
+åŒ€é€Ÿæ˜¾ç¤º
 sudo yum install pv 
-$ ÃüÁî | pv -qL 10(ËÙ¶È)
+$ å‘½ä»¤ | pv -qL 10(é€Ÿåº¦)
 
-ºÚ¿ÍÄ£Ê½
-ÏÈÏÂÔØ
-Á´½Ó£ºhttps://pan.baidu.com/s/1bqXLH2PoOhpJZUNCuEcoDw 
-ÌáÈ¡Âë£ºtqil 
-ÒÆ¶¯½âÑ¹½øÈëÄ¿Â¼
-±àÒë ./configure && make && make install
-cmatrix-a :Òì²½¹ö¶¯£¨Ä¬ÈÏ£©
+é»‘å®¢æ¨¡å¼
+å…ˆä¸‹è½½
+é“¾æ¥ï¼šhttps://pan.baidu.com/s/1bqXLH2PoOhpJZUNCuEcoDw 
+æå–ç ï¼štqil 
+ç§»åŠ¨è§£å‹è¿›å…¥ç›®å½•
+ç¼–è¯‘ ./configure && make && make install
+cmatrix-a :å¼‚æ­¥æ»šåŠ¨ï¼ˆé»˜è®¤ï¼‰
 
-cmatrix-b :Ëæ»ú´ÖÌå
+cmatrix-b :éšæœºç²—ä½“
 
-cmatrix-B :È«²¿´ÖÌå
+cmatrix-B :å…¨éƒ¨ç²—ä½“
 
-cmatrix-o :Ê¹ÓÃ¾É·ç¸ñ¹ö¶¯
+cmatrix-o :ä½¿ç”¨æ—§é£æ ¼æ»šåŠ¨
 
-cmatrix-x :X window Ä£Ê½
+cmatrix-x :X window æ¨¡å¼
 
-cmatrix-V :ÏÔÊ¾°æ±¾ĞÅÏ¢
+cmatrix-V :æ˜¾ç¤ºç‰ˆæœ¬ä¿¡æ¯
 
-cmatrix-u :Ë¢ĞÂÆµÂÊ£¬0-9£¬Ò²¾ÍÊÇ¹ö¶¯µÄ¿ìÂı
+cmatrix-u :åˆ·æ–°é¢‘ç‡ï¼Œ0-9ï¼Œä¹Ÿå°±æ˜¯æ»šåŠ¨çš„å¿«æ…¢
 
-cmatrix-C :ÏÔÊ¾µÄÑÕÉ«£¬Ö§³Ögreen(Ä¬ÈÏ),red,blue,white,yellow,cyan,
+cmatrix-C :æ˜¾ç¤ºçš„é¢œè‰²ï¼Œæ”¯æŒgreen(é»˜è®¤),red,blue,white,yellow,cyan,
 ?? ??? ?magenta and black
-ÀıÈç:Ê¹ÓÃºìÉ«
+ä¾‹å¦‚:ä½¿ç”¨çº¢è‰²
 cmatrix -b -C red
-Ê¹ÓÃÀ¶É«
+ä½¿ç”¨è“è‰²
 cmatrix -b -C blue
 
 
 			
-windowsÅäÖÃÓòÃû½âÎö·ÃÎÊĞéÄâ»úwebÍøÂç£¨windowsºÍliunxÒ»Ñù£©
+windowsé…ç½®åŸŸåè§£æè®¿é—®è™šæ‹Ÿæœºwebç½‘ç»œï¼ˆwindowså’Œliunxä¸€æ ·ï¼‰
 
-ĞŞ¸ÄhostÎÄ¼ş 
-Ôö¼Ó     IP£¨ĞéÄâ»úµÄip£©    www.xxx.com(Ëæ±ãÃüÃû£¬µ«ÒªºÍĞéÄâ»úµÄÏîÄ¿ÀïÃæÒ»ÖÂ£©
+ä¿®æ”¹hostæ–‡ä»¶ 
+å¢åŠ      IPï¼ˆè™šæ‹Ÿæœºçš„ipï¼‰    www.xxx.com(éšä¾¿å‘½åï¼Œä½†è¦å’Œè™šæ‹Ÿæœºçš„é¡¹ç›®é‡Œé¢ä¸€è‡´ï¼‰
  
-ĞéÄâ»úµÄtomcatÅäÖÃ
+è™šæ‹Ÿæœºçš„tomcaté…ç½®
 
-ĞŞ¸ÄtomcatµÄ¶Ë¿ÚÎª80
-ĞŞ¸Ä server.xml ÖĞµÄ <Engine name="Catalina" defaultHost="localhost"> 
-ºÍ HostÀïÃæµÄ name ="localhost"  °Ñlocalhost¸Ä³ÉÉÏÃæµÄÓòÃû www.xxx.com
-Æô¶¯tomcat£¬±¾µØµÇÂ¼ www.xxx.com¼´¿É·ÃÎÊ tomcat µÄwebÏîÄ¿
+ä¿®æ”¹tomcatçš„ç«¯å£ä¸º80
+ä¿®æ”¹ server.xml ä¸­çš„ <Engine name="Catalina" defaultHost="localhost"> 
+å’Œ Hosté‡Œé¢çš„ name ="localhost"  æŠŠlocalhostæ”¹æˆä¸Šé¢çš„åŸŸå www.xxx.com
+å¯åŠ¨tomcatï¼Œæœ¬åœ°ç™»å½• www.xxx.comå³å¯è®¿é—® tomcat çš„webé¡¹ç›®
