@@ -1,0 +1,273 @@
+yum 
+     
+	tar -zxvf yum-3.4.3.tar.gz     #解压后进到yum-3.4.3目录
+   ./yummain.py update
+   
+jdk
+ rpm -ivh jdk-8u102-linux-x64.rpm   
+
+weblogic
+  su ******
+  java -jar fmw_12.1.3.0.0_wls.jar  
+  
+如出现未设置 DISPLAY 环境变量   如果是未知则看看是不是root，是就换了。
+ 则执行  
+ 继续在虚拟机终端输入	
+	java -jar fmw_12.1.3.0.0_wls.jar 		
+	
+source /etc/profile 刷新环境变量	
+	
+domain
+
+cd /home/adminm/Oracle/Middleware/Oracle_Home/wlserver/common/bin
+./config.sh
+
+启动
+ cd /home/adminm/Oracle/Middleware/Oracle_Home/user_projects/domains/base_domain/bin
+ ./startWebLogic.sh
+ 
+ 
+ 关闭防火墙 
+ 安装yum install iptables-services
+	查看防火墙状态 sudo systemctl status firewalld
+	
+	关闭防火墙 sudo systemctl disable firewalld
+			   sudo systemctl stop firewalld
+下载mysql的repo源
+wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm 
+安装包
+ rpm -ivh mysql-community-release-el7-5.noarch.rpm
+ 安装mysql
+ sudo yum install mysql-server
+ 登录 
+ mysql -uroot -p
+ 出现错误（ERROR 2002 (HY000): Can‘t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock‘(2)
+ 原因是mysql这个文件的权限问题，需要把这个文件的权限改为当前用户）
+sudo chown -R adminm:adminm /var/lib/mysql
+重启服务登录root
+service mysqld restart
+mysql -u root
+进入服务修改密码
+use mysql;
+update user set password=password('*******') where user='root';
+flush privileges;（系统刷新生效）
+下面就介绍几个目录。  
+1、 数据库目录
+/var/lib/mysql/  
+2、配置文件
+/usr/share /mysql（mysql.server命令及配置文件）  
+3、相关命令  
+停止mysql
+service mysqld stop
+/etc/inint.d/mysqld stop
+开始mysql
+service mysqld restart
+/usr/bin(mysqladmin mysqldump等命令)  
+4、启动脚本  
+/etc/rc.d/init.d/（启动脚本文件mysql的目录）
+编码修改： 在/etc 下修改my.cof文件，添加 character-set-server=utf8 ，init_connect='SET NAMES，utf8' 重启mysql ；
+
+netstat -anp ===等于===  ps -ef|grep mysql
+
+
+
+
+本地链接虚拟机MySQL
+1, cmd下telnet ***.***.**.*** 3306 （如果无法执行，则开启windows的telnet服务）
+2，查看网络端口信息 netstat -ntpl ; 查看防火墙状态 iptables -vnL;
+3，清除防火墙中链中的规则 iptables -F;
+4，在iptables.service 添加和22一样的3306(模仿22端口开放3306);
+5，update user set host='%' where user = 'root' ;
+6,如果不允许链接 则停止mysql ， 屏蔽权限 mysqld_safe --skip-grant-table ，重新登录查看，如果美好则 
+UPDATE user SET Password=PASSWORD('newpassword') where USER='root';
+或delete from user where USER='';  最后  FLUSH PRIVILEGES （一定要执行）；
+
+
+
+
+安装nginx
+ 安装 gcc、pcre-devel、zlib-devel、openssl-devel。
+ 安装命令 yum -y install gcc pcre-devel zlib-devel openssl openssl-devel
+ 下载nginx安装包
+ wget https://nginx.org/download/nginx-1.9.9.tar.gz
+ 解压
+tar -zxvf nginx-1.9.9.tar.gz
+进入解压目录里
+./configure --prefix=/usr/local/nginx
+注释：nginx编译选项
+make是用来编译的，它从Makefile中读取指令，然后编译。
+make install是用来安装的，它也从Makefile中读取指令，安装到指定的位置。
+configure命令是用来检测你的安装平台的目标特征的。它定义了系统的各个方面，包括nginx的被允许使用的连接处理的方法，比如它会检测你是不是有CC或GCC，并不是需要CC或GCC，它是个shell脚本，执行结束时，它会创建一个Makefile文件。nginx的configure命令支持以下参数：
+–prefix=path 定义一个目录，存放服务器上的文件 ，也就是nginx的安装目录。默认使用 /usr/local/nginx。
+–sbin-path=path 设置nginx的可执行文件的路径，默认为 prefix/sbin/nginx.
+–conf-path=path 设置在nginx.conf配置文件的路径。nginx允许使用不同的配置文件启动，通过命令行中的-c选项。默认为prefix/conf/nginx.conf.
+–pid-path=path 设置nginx.pid文件，将存储的主进程的进程号。安装完成后，可以随时改变的文件名 ， 在nginx.conf配置文件中使用 PID指令。默认情况下，文件名 为prefix/logs/nginx.pid.
+–error-log-path=path 设置主错误，警告，和诊断文件的名称。安装完成后，可以随时改变的文件名 ，在nginx.conf配置文件中 使用 的error_log指令。默认情况下，文件名 为prefix/logs/error.log.
+–http-log-path=path 设置主请求的HTTP服务器的日志文件的名称。安装完成后，可以随时改变的文件名 ，在nginx.conf配置文件中 使用 的access_log指令。默认情况下，文件名 为prefix/logs/access.log.
+–user=name 设置nginx工作进程的用户。安装完成后，可以随时更改的名称在nginx.conf配置文件中 使用的 user指令。默认的用户名是nobody。
+–group=name 设置nginx工作进程的用户组。安装完成后，可以随时更改的名称在nginx.conf配置文件中 使用的 user指令。默认的为非特权用户。
+–with-select_module --without-select_module 启用或禁用构建一个模块来允许服务器使用select()方法。该模块将自动建立，如果平台不支持的kqueue，epoll，rtsig或/dev/poll。
+–with-poll_module --without-poll_module 启用或禁用构建一个模块来允许服务器使用poll()方法。该模块将自动建立，如果平台不支持的kqueue，epoll，rtsig或/dev/poll。
+–without-http_gzip_module — 不编译压缩的HTTP服务器的响应模块。编译并运行此模块需要zlib库。
+–without-http_rewrite_module 不编译重写模块。编译并运行此模块需要PCRE库支持。
+–without-http_proxy_module — 不编译http_proxy模块。
+–with-http_ssl_module — 使用https协议模块。默认情况下，该模块没有被构建。建立并运行此模块的OpenSSL库是必需的。
+–with-pcre=path — 设置PCRE库的源码路径。PCRE库的源码（版本4.4 - 8.30）需要从PCRE网站下载并解压。其余的工作是Nginx的./ configure和make来完成。正则表达式使用在location指令和 ngx_http_rewrite_module 模块中。
+–with-pcre-jit —编译PCRE包含“just-in-time compilation”（1.1.12中， pcre_jit指令）。
+–with-zlib=path —设置的zlib库的源码路径。要下载从 zlib（版本1.1.3 - 1.2.5）的并解压。其余的工作是Nginx的./ configure和make完成。ngx_http_gzip_module模块需要使用zlib 。
+–with-cc-opt=parameters — 设置额外的参数将被添加到CFLAGS变量。例如,当你在FreeBSD上使用PCRE库时需要使用:–with-cc-opt="-I /usr/local/include。.如需要需要增加 select()支持的文件数量:–with-cc-opt="-D FD_SETSIZE=2048".
+–with-ld-opt=parameters —设置附加的参数，将用于在链接期间。例如，当在FreeBSD下使用该系统的PCRE库,应指定:–with-ld-opt="-L /usr/local/lib".
+--------------------- 
+编译安装
+make 
+make install
+编译安装完成之后，进入/usr/lcoal/nginx，查看是否安装成功
+./sbin/nginx -t
+启动
+./nginx    ./nginx -s reload
+显示
+[root@~]# ps -ef | grep nginx
+root 22786 1 0 16:30 ? 00:00:00 nginx: master process /usr/local/nginx/sbin/nginx
+nobody 22787 22786 0 16:30 ? 00:00:00 nginx: worker process
+root 22789 22760 0 16:30 pts/1 00:00:00 grep --color=auto nginx
+表示成功 登录服务器IP地址即可访问
+
+nginx提示still could not bind()，端口号被占用，其他则kill掉，本身则停止重启。
+
+查看
+lsof -i 端口号
+配置环境变量(如果显示bash: nginx: 未找到命令...则需要配置)
+vim /etc/profile
+在 unset 后面添加  
+PATH = SPATH:/usr/local/nginx/sbin/nginx
+export PATH
+配置nginx开机自启动
+vim  /etc/rc.d/rc.local
+在 touch .... 下面添加 /usr/lcoal/nginx/sbin/nginx 
+
+nginx 服务器重启命令，关闭
+nginx -s reload ：修改配置后重新加载生效
+nginx -s reopen ：重新打开日志文件
+nginx -t -c /path/to/nginx.conf 测试nginx配置文件是否正确
+
+关闭nginx：
+nginx -s stop :快速停止nginx
+quit ：完整有序的停止nginx
+
+其他的停止nginx 方式：
+
+ps -ef | grep nginx
+
+kill -QUIT 主进程号 ：从容停止Nginx
+kill -TERM 主进程号 ：快速停止Nginx
+pkill -9 nginx ：强制停止Nginx
+
+ 
+
+启动nginx:
+nginx -c /path/to/nginx.confs
+
+平滑重启nginx：
+kill -HUP 主进程号
+
+反向代理和负载均衡有何区别
+反向代理，是把一些静态资源存储在服务器上，当用户有请求的时候，就直接返回反向代理服务器上的资源给用户，而如果反向代理服务器上没有的资源，就转发给后面的负载均衡服务器，负载均衡服务器再将请求分发给后端的web服务器。
+区别就是：反向代理服务器是需要存储资源的，让用户更快速的接收到资源 负载均衡就是，为了保证后端web服务器的高可用，高并发，是不需要要存储资源，只需要转发用户的请求。
+负载均衡是做反向代理的目的之一。
+没太大区别，要说区别就是后端是1台了叫反向代理，有多台了就是负载均衡了，没啥大区别。
+
+
+安装tomcat  
+下载 解压 /bin下面启动 
+开启第二个 复制一份(目录时cp -r )，修改 /conf 下面的server.xml ，更改 3个端口 , 启动就行。
+
+<html>
+<body>
+<h1>JSP Test Page</h1>
+<hr color=blue>
+<%=new java.util.Date()%>
+</body>
+</html>
+
+
+命令查看各端口号占用情况
+netstat -ntpl
+
+设置服务端口
+upstream nginxDemo（随便命名，但要和下面统一）{
+server 192.168.17.130:8080    权重 weight=5 ;
+server 192.168.17.130:8081;
+server 192.168.17.130:8082;
+server 192.168.17.130:8083;
+}
+  location / {
+   proxy_pass http://nginxDemo;
+   proxy_redirect default;
+ }
+
+
+更新一下yum咯
+yum install -y epel-release
+火车
+sudo yum install sl 
+$ sl
+
+放火	
+sudo yum install libaa-bin 
+
+小老鼠
+sudo yum install oneko
+$ oneko
+
+眼睛
+sudo yum install xeyes
+$ xeyes
+
+目录框
+sudo yum install boxes
+$  命令 | boxes -d dog 
+
+匀速显示
+sudo yum install pv 
+$ 命令 | pv -qL 10(速度)
+
+黑客模式
+先下载
+链接：https://pan.baidu.com/s/1bqXLH2PoOhpJZUNCuEcoDw 
+提取码：tqil 
+移动解压进入目录
+编译 ./configure && make && make install
+cmatrix-a :异步滚动（默认）
+
+cmatrix-b :随机粗体
+
+cmatrix-B :全部粗体
+
+cmatrix-o :使用旧风格滚动
+
+cmatrix-x :X window 模式
+
+cmatrix-V :显示版本信息
+
+cmatrix-u :刷新频率，0-9，也就是滚动的快慢
+
+cmatrix-C :显示的颜色，支持green(默认),red,blue,white,yellow,cyan,
+?? ??? ?magenta and black
+例如:使用红色
+cmatrix -b -C red
+使用蓝色
+cmatrix -b -C blue
+
+
+			
+windows配置域名解析访问虚拟机web网络（windows和liunx一样）
+
+修改host文件 
+增加     IP（虚拟机的ip）    www.xxx.com(随便命名，但要和虚拟机的项目里面一致）
+ 
+虚拟机的tomcat配置
+
+修改tomcat的端口为80
+修改 server.xml 中的 <Engine name="Catalina" defaultHost="localhost"> 
+和 Host里面的 name ="localhost"  把localhost改成上面的域名 www.xxx.com
+启动tomcat，本地登录 www.xxx.com即可访问 tomcat 的web项目
