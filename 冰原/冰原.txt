@@ -81,7 +81,7 @@ netstat -anp ===等于===  ps -ef|grep mysql
 6,如果不允许链接 先 use mysql //使用数据库
 delete from user where USER=''; 或 UPDATE user SET Password=PASSWORD('newpassword') where USER='root';
 最后  FLUSH PRIVILEGES （一定要执行）；
-还不行就停止mysql ， 屏蔽权限 mysqld_safe --skip-grant-table ，重新登录查看。
+还不行就停止mysql ， 屏蔽权限 mysqld_safe --skip-grant-table ，重新登录查看。（重启之后访问不了也执行这两部）
 
 
 安装node
