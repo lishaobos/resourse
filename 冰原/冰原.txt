@@ -84,6 +84,8 @@ delete from user where USER=''; 或 UPDATE user SET Password=PASSWORD('newpasswo
 还不行就停止mysql ， 屏蔽权限 mysqld_safe --skip-grant-table ，重新登录查看。
 
 
+安装node
+根据node官网教程就行，只是第三步变成 source ./profile  //得去那个文件的目录
 
 
 安装nginx
