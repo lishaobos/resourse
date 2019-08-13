@@ -220,6 +220,9 @@ server {
 	 proxy_pass http://example.com:7001/;
   }
   }
+  
+  3.关于 nginx 代理资源和代理请求的区别
+  	
 
 
 更新一下yum咯
