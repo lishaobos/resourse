@@ -184,6 +184,11 @@ kill -HUP 主进程号
 下载 解压 /bin下面启动 
 开启第二个 复制一份(目录时cp -r )，修改 /conf 下面的server.xml ，更改 3个端口 , 启动就行。
 
+
+nginx 查找文件或者文件夹的地址
+find -name 名字
+
+
 <html>
 <body>
 <h1>JSP Test Page</h1>
