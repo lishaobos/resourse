@@ -78,6 +78,7 @@ netstat -anp ===等于===  ps -ef|grep mysql
 3，清除防火墙中链中的规则 iptables -F;
 4，在iptables.service 添加和22一样的3306(模仿22端口开放3306);
 5，update user set host='%' where user = 'root' ;
+//数据库连接不上先从第 6 条顺序开始
 6,如果不允许链接 先 use mysql //使用数据库
 delete from user where USER=''; 或 UPDATE user SET Password=PASSWORD('newpassword') where USER='root';
 最后  FLUSH PRIVILEGES （一定要执行）；
